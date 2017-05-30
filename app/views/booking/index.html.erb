@@ -1,0 +1,62 @@
+<!-- <div style="display: inline;"> -->
+<h4> Your Bookings </h4>
+<a style="float:right" href="/booking/new" class="btn btn-medium center-align waves-effect waves-light no-uppercase"> Book Now </a>
+<!-- </div> -->
+
+<%
+time_slot = {
+  "0" => "09:00 - 09:20",
+  "1" => "09.20 - 09:40",
+  "2" => "09.40 - 10:00",
+  "3" => "10:00 - 10:20",
+  "4" => "10:20 - 10:40",
+  "5" => "10:40 - 11:00",
+  "6" => "11:00 - 11:20",
+  "7" => "11.20 - 11:40",
+  "8" => "11.40 - 12:00",
+  "9" => "12:00 - 12:20",
+  "10" => "12:20 - 12:40",
+  "11" => "12:40 - 13:00",
+  "12" => "13:00 - 13:20",
+  "13" => "13.20 - 13:40",
+  "14" => "13.40 - 14:00",
+  "15" => "14:00 - 14:20",
+  "16" => "14:20 - 14:40",
+  "17" => "14:40 - 15:00",
+  "18" => "15:00 - 15:20",
+  "19" => "15:20 - 15:40",
+  "20" => "15.40 - 16:00",
+  "21" => "16:00 - 16:20",
+  "22" => "16:20 - 16:40",
+  "23" => "16:40 - 17:00",
+}
+%>
+<br>
+<% if @bookings.length == 0 then %>
+  <p> You have no bookings yet! </p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th> Club </th>
+        <th> Date </th>
+        <th> Time Slot </th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <tr>
+          <td> <%= booking.club.name %> </td>
+          <td> <%= booking.day %> </td>
+          <td> <%= time_slot["#{booking.time_slot}"] %> </td>
+          <% if booking.day >= Date.today then %>
+            <td> <button class="delete_booking btn btn-small center-align waves-effect waves-light red no-uppercase" data-booking-id = "<%=booking.id%>"> Delete </button> </td>
+          <% else %>
+            <td> <button class="delete_booking btn btn-small center-align waves-effect waves-light red no-uppercase" data-booking-id = "<%=booking.id%>" disabled> Delete </button> </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
